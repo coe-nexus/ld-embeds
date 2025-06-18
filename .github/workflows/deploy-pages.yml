@@ -59,7 +59,7 @@ jobs:
               
               # Copy build output to dist/app_name
               mkdir -p "../../dist/$app_name"
-              cp -r build/* "../../dist/$app_name/"
+              cp -r dist/* "../../dist/$app_name/"
               cd ../..
             fi
           done
