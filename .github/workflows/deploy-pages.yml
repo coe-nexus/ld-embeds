@@ -1,0 +1,55 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write  # Need write permission for peaceiris/actions-gh-pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4  # Updated to v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4  # Updated to v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Build all apps
+      run: |
+        # Create output directory
+        mkdir -p dist
+        
+        # Copy static files
+        cp -r static/* dist/
+
+        # Build each React app
+        for app in react-apps/*; do
+          if [ -d "$app" ]; then
+            app_name=$(basename "$app")
+            echo "Building $app_name..."
+            cd "$app"
+            npm install
+            npm run build || exit 1
+            mkdir -p "../../dist/$app_name"
+            cp -r build/* "../../dist/$app_name/"
+            cd ../..
+          fi
+        done
+        
+        # List built files
+        echo "Built files:"
+        ls -la dist/
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
