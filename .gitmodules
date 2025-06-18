@@ -1,0 +1,3 @@
+[submodule "react-apps/roi-calculator"]
+	path = react-apps/roi-calculator
+	url = https://github.com/coe-nexus/roi-calculator.git
