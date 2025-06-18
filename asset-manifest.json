@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ld-embeds/react-apps/roi-calc/static/css/main.f855e6bc.css",
+    "main.js": "/ld-embeds/react-apps/roi-calc/static/js/main.1ea9d813.js",
+    "static/js/453.6b72de7b.chunk.js": "/ld-embeds/react-apps/roi-calc/static/js/453.6b72de7b.chunk.js",
+    "index.html": "/ld-embeds/react-apps/roi-calc/index.html",
+    "main.f855e6bc.css.map": "/ld-embeds/react-apps/roi-calc/static/css/main.f855e6bc.css.map",
+    "main.1ea9d813.js.map": "/ld-embeds/react-apps/roi-calc/static/js/main.1ea9d813.js.map",
+    "453.6b72de7b.chunk.js.map": "/ld-embeds/react-apps/roi-calc/static/js/453.6b72de7b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.1ea9d813.js"
+  ]
+}
