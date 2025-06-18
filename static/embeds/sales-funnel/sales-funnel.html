@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scale Sales Without Scaling Headcount - AI Sales Acceleration | Covenant of Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            50% { transform: translateY(5px) translateX(-5px); }
+            75% { transform: translateY(-5px) translateX(10px); }
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .hero-text h1 .highlight {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-text p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FFD700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 4px;
+        }
+        
+        /* Lead Capture Form */
+        .lead-form {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lead-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #FFD700);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .form-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        
+        .form-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .cta-button {
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .trust-indicators {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Value Propositions */
+        .value-props {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .prop-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .prop-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .prop-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .prop-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+        }
+        
+        .prop-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        
+        .prop-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Metrics Section */
+        .metrics {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .metric-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Funnel Flow */
+        .funnel-flow {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .flow-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+        
+        .flow-step:not(:last-child) .step-number::after {
+            content: '→';
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #667eea;
+        }
+        
+        .flow-step h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+        
+        .flow-step p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            text-align: center;
+            color: white;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .final-cta .cta-button {
+            display: inline-block;
+            width: auto;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-step:not(:last-child) .step-number::after {
+                content: '↓';
+                right: auto;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+        
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+        
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text slide-in-left">
+                    <h1>Scale Your Sales <span class="highlight">Without Scaling Headcount</span></h1>
+                    <p>Transform every rep into a top performer with AI-powered training that clones your best salespeople. Get 300% revenue growth in 90 days while your competitors hire more reps.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">300%</span>
+                            <span class="stat-label">Revenue Growth</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">90</span>
+                            <span class="stat-label">Days to Results</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10X</span>
+                            <span class="stat-label">ROI</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lead-form slide-in-right">
+                    <div class="form-header">
+                        <h3>See AI Sales Acceleration in Action</h3>
+                        <p>Get a custom demo showing how AI clones your top performers to train your entire team</p>
+                    </div>
+                    
+                    <form id="leadForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Work Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="role">Your Role</label>
+                            <select id="role" name="role" required>
+                                <option value="">Select your role</option>
+                                <option value="ceo">CEO/Founder</option>
+                                <option value="sales-director">Sales Director</option>
+                                <option value="vp-sales">VP of Sales</option>
+                                <option value="sales-manager">Sales Manager</option>
+                                <option value="product-manager">Product Manager</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="challenge">Biggest Sales Challenge</label>
+                            <textarea id="challenge" name="challenge" rows="3" placeholder="e.g., 80% of our reps underperform, need to scale without hiring, long training cycles..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="cta-button">
+                            Get My Custom AI Demo
+                        </button>
+                        
+                        <div class="trust-indicators">
+                            🚀 Live AI Demo • See 300% Growth Results • Trusted by Industry Leaders
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Value Propositions -->
+    <section class="value-props">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>The 80/20 Sales Problem</h2>
+                <p>80% of your reps underperform while 20% generate 80% of revenue. Our AI clones your top performers' expertise and trains your entire team 24/7.</p>
+            </div>
+            
+            <div class="props-grid">
+                <div class="prop-card fade-in">
+                    <div class="prop-icon">🧠</div>
+                    <h3>AI Knowledge Capture</h3>
+                    <p>Our AI learns from your top performers' actual sales calls, techniques, and objection handling. We clone their expertise so every rep can access their knowledge.</p>
+                </div>
+                
+                <div class="prop-card fade-in">
+                    <div class="prop-icon">📞</div>
+                    <h3>24/7 AI Practice Calls</h3>
+                    <p>Reps practice with AI that simulates real customer conversations anytime, anywhere. Perfect their pitch through unlimited phone-based training sessions.</p>
+                </div>
+                
+                <div class="prop-card fade-in">
+                    <div class="prop-icon">📈</div>
+                    <h3>Real-Time AI Coaching</h3>
+                    <p>Instant feedback during practice calls and live sales interactions. AI identifies gaps and provides personalized coaching to accelerate improvement.</p>
+                </div>
+                
+                <div class="prop-card fade-in">
+                    <div class="prop-icon">🎯</div>
+                    <h3>Personalized Learning Paths</h3>
+                    <p>AI adapts training to each rep's specific weaknesses and learning style. Focus time on what will move the needle most for each individual.</p>
+                </div>
+                
+                <div class="prop-card fade-in">
+                    <div class="prop-icon">📊</div>
+                    <h3>Performance Analytics</h3>
+                    <p>Real-time dashboards track improvement, ROI, and team performance. Integrate with your CRM to see direct impact on revenue and conversion rates.</p>
+                </div>
+                
+                <div class="prop-card fade-in">
+                    <div class="prop-icon">🚀</div>
+                    <h3>Scalable Implementation</h3>
+                    <p>Deploy to 100 reps as easily as 10. Our platform scales instantly without adding training staff or requiring classroom time away from selling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Metrics Section -->
+    <section class="metrics">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Proven Results: Vvardis Case Study</h2>
+                <p>Real companies achieving extraordinary growth with AI sales acceleration in weeks, not years.</p>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card fade-in">
+                    <div class="metric-number">300%</div>
+                    <div class="metric-label">Sales Increase</div>
+                    <div class="metric-description">Vvardis achieved in 90 days with AI training</div>
+                </div>
+                
+                <div class="metric-card fade-in">
+                    <div class="metric-number">1,624%</div>
+                    <div class="metric-label">ROI in Year One</div>
+                    <div class="metric-description">$290K investment generates $5M additional revenue</div>
+                </div>
+                
+                <div class="metric-card fade-in">
+                    <div class="metric-number">6</div>
+                    <div class="metric-label">Week Payback</div>
+                    <div class="metric-description">Fastest payback period in sales enablement</div>
+                </div>
+                
+                <div class="metric-card fade-in">
+                    <div class="metric-number">85%</div>
+                    <div class="metric-label">Rep Adoption Rate</div>
+                    <div class="metric-description">Reps love training with AI vs traditional methods</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Funnel Flow -->
+    <section class="funnel-flow">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Fast, Proven Implementation</h2>
+                <p>From demo to results in weeks, not months. Most clients see measurable improvement within 30 days.</p>
+            </div>
+            
+            <div class="flow-steps">
+                <div class="flow-step fade-in">
+                    <div class="step-number">1</div>
+                    <h4>Custom AI Demo (Week 1)</h4>
+                    <p>We create a live demonstration using your actual sales scenarios, showing how AI captures your top performers' expertise and trains your team via phone calls.</p>
+                </div>
+                
+                <div class="flow-step fade-in">
+                    <div class="step-number">2</div>
+                    <h4>Knowledge Capture (Weeks 1-2)</h4>
+                    <p>Our AI learns from your best reps' successful calls and techniques. We analyze their objection handling, closing strategies, and conversation flow patterns.</p>
+                </div>
+                
+                <div class="flow-step fade-in">
+                    <div class="step-number">3</div>
+                    <h4>Pilot Launch (Weeks 3-4)</h4>
+                    <p>Deploy with 10 reps for rapid testing and optimization. Reps start practicing with AI immediately via phone-based training sessions.</p>
+                </div>
+                
+                <div class="flow-step fade-in">
+                    <div class="step-number">4</div>
+                    <h4>Full Deployment (Weeks 5-12)</h4>
+                    <p>Scale to your entire team with real-time coaching, performance analytics, and continuous AI optimization. Track ROI and revenue impact daily.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container fade-in">
+            <h2>Ready to Scale Without Hiring?</h2>
+            <p>Join Vvardis, Straumann, and other leaders achieving 300% growth with AI sales acceleration</p>
+            <button class="cta-button" onclick="document.getElementById('leadForm').scrollIntoView({behavior: 'smooth'})">
+                Get Your Custom ROI Demo
+            </button>
+        </div>
+    </section>
+    
+    <script>
+        // Form submission
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Simulate form submission
+            console.log('Lead captured:', data);
+            
+            // Show success message
+            alert('Thank you! Our AI demo team will create a live demonstration using your specific sales scenarios. We\'ll contact you within 24 hours to schedule your custom ROI presentation.');
+            
+            // In a real implementation, you would send this data to your CRM/email service
+            // fetch('/api/leads', { method: 'POST', body: JSON.stringify(data) })
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.style.animationFillMode = 'forwards';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Form validation and UX improvements
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
