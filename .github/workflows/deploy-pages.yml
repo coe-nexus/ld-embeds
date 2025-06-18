@@ -1,83 +1,87 @@
-name: Build and Deploy to GitHub Pages
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches: [ main ]
+    branches: [main]
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
-  deployments: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  # Single deploy job since we're just deploying
+  deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-    
-    - name: Build all apps
-      run: |
-        # Create output directory
-        mkdir -p dist
-        
-        # Copy static files to root of dist
-        if [ -d "static" ] && [ "$(ls -A static)" ]; then
-          cp -r static/* dist/
-        fi
-
-        # Build each React app
-        for app in react-apps/*; do
-          if [ -d "$app" ]; then
-            app_name=$(basename "$app")
-            echo "Building $app_name..."
-            cd "$app"
-            
-            if [ -f "package-lock.json" ]; then
-              npm ci
-            else
-              npm install
-            fi
-            
-            npm run build || exit 1
-            
-            mkdir -p "../../dist/$app_name"
-            cp -r build/* "../../dist/$app_name/"
-            cd ../..
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Build all apps
+        run: |
+          # Create output directory
+          mkdir -p dist
+          
+          # Copy static files to root of dist
+          if [ -d "static" ] && [ "$(ls -A static)" ]; then
+            cp -r static/* dist/
           fi
-        done
-        
-        echo "Built files structure:"
-        find dist -type f -name "*.html" | head -20
-    
-    - name: Create GitHub deployment
-      uses: chrnorm/deployment-action@v2
-      id: deployment
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        environment: github-pages
-        environment-url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
-    
-    - name: Update deployment status
-      if: always()
-      uses: chrnorm/deployment-status@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-        state: ${{ job.status }}
-        environment-url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+
+          # Build each React app
+          for app in react-apps/*; do
+            if [ -d "$app" ]; then
+              app_name=$(basename "$app")
+              echo "Building $app_name..."
+              cd "$app"
+              
+              # Install dependencies
+              if [ -f "package-lock.json" ]; then
+                npm ci
+              else
+                npm install
+              fi
+              
+              npm run build || exit 1
+              
+              # Copy build output to dist/app_name
+              mkdir -p "../../dist/$app_name"
+              cp -r build/* "../../dist/$app_name/"
+              cd ../..
+            fi
+          done
+          
+          # List built files for debugging
+          echo "Built files structure:"
+          find dist -type f -name "*.html" | head -20
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload dist directory instead of entire repository
+          path: './dist'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
