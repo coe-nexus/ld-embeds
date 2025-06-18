@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scale Your Sales with AI - Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            padding: 60px;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.2;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            animation: slideIn 0.8s ease-out 0.2s backwards;
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            animation: slideIn 0.8s ease-out 0.3s backwards;
+        }
+
+        p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #ccc;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease-out 0.4s backwards;
+        }
+
+        .metric {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            animation: scaleIn 0.8s ease-out 0.3s backwards;
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .card:nth-child(1) { animation-delay: 0.4s; }
+        .card:nth-child(2) { animation-delay: 0.5s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-button:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #0099ff);
+            transition: width 0.3s ease;
+            z-index: 101;
+        }
+
+        .roi-calculator {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid #00d4ff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            animation: fadeIn 0.8s ease-out 0.5s backwards;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1000px;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.3s; }
+        .stat-item:nth-child(2) { animation-delay: 0.4s; }
+        .stat-item:nth-child(3) { animation-delay: 0.5s; }
+
+        .client-logo {
+            height: 60px;
+            filter: brightness(0) invert(1);
+            opacity: 0.6;
+            margin: 0 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .client-logo:hover {
+            opacity: 1;
+        }
+
+        .demo-screen {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out 0.6s backwards;
+        }
+
+        .feature-list {
+            list-style: none;
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .feature-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.2rem;
+            animation: fadeInLeft 0.8s ease-out backwards;
+        }
+
+        .feature-list li:nth-child(1) { animation-delay: 0.4s; }
+        .feature-list li:nth-child(2) { animation-delay: 0.5s; }
+        .feature-list li:nth-child(3) { animation-delay: 0.6s; }
+        .feature-list li:nth-child(4) { animation-delay: 0.7s; }
+
+        .feature-list li:before {
+            content: "✓ ";
+            color: #00d4ff;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .highlight {
+            color: #00d4ff;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #999;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out 0.3s backwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar"></div>
+        
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <h1>Scale Your Sales Without<br>Scaling Your Headcount</h1>
+            <p class="subtitle">Transform every rep into a top performer with AI</p>
+            <div class="stat-row">
+                <div class="stat-item">
+                    <div class="metric">300%</div>
+                    <div class="metric-label">Revenue Growth</div>
+                </div>
+                <div class="stat-item">
+                    <div class="metric">90</div>
+                    <div class="metric-label">Days to Results</div>
+                </div>
+                <div class="stat-item">
+                    <div class="metric">10X</div>
+                    <div class="metric-label">ROI</div>
+                </div>
+            </div>
+            <div class="slide-number">1 / 12</div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <h2>The Sales Performance Gap</h2>
+            <div class="stat-row">
+                <div class="stat-item">
+                    <div class="metric">80%</div>
+                    <div class="metric-label">of your reps</div>
+                    <p>underperform</p>
+                </div>
+                <div class="stat-item">
+                    <div class="metric">20%</div>
+                    <div class="metric-label">generate</div>
+                    <p>80% of revenue</p>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-size: 1.8rem;">Your top performers are too busy closing deals to train others</p>
+            <div class="slide-number">2 / 12</div>
+        </div>
+
+        <!-- Slide 3: The Cost -->
+        <div class="slide">
+            <h2>What This Gap Costs You</h2>
+            <div class="roi-calculator">
+                <h3>For a 50-Rep Team:</h3>
+                <div style="text-align: left; margin: 20px 0;">
+                    <p>• Average quota: $2M/year</p>
+                    <p>• Bottom 80% achieving: 40% of quota</p>
+                    <p>• Top 20% achieving: 150% of quota</p>
+                </div>
+                <div style="border-top: 2px solid #00d4ff; margin: 20px 0; padding-top: 20px;">
+                    <p style="font-size: 2rem; text-align: center;">
+                        Lost Revenue: <span class="highlight">$24M/year</span>
+                    </p>
+                </div>
+            </div>
+            <div class="slide-number">3 / 12</div>
+        </div>
+
+        <!-- Slide 4: The Solution -->
+        <div class="slide">
+            <h2>Introducing AI Sales Acceleration</h2>
+            <p class="subtitle">Clone your top performers' expertise</p>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">🧠</div>
+                    <h3>Knowledge Capture</h3>
+                    <p>AI learns from your best reps' calls and techniques</p>
+                </div>
+                <div class="card">
+                    <div class="icon">📞</div>
+                    <h3>24/7 Practice</h3>
+                    <p>Reps train with AI via phone anytime, anywhere</p>
+                </div>
+                <div class="card">
+                    <div class="icon">📈</div>
+                    <h3>Real-Time Coaching</h3>
+                    <p>Instant feedback and performance tracking</p>
+                </div>
+            </div>
+            <div class="slide-number">4 / 12</div>
+        </div>
+
+        <!-- Slide 5: How It Works -->
+        <div class="slide">
+            <h2>How It Works</h2>
+            <div class="demo-screen">
+                <div style="text-align: center; padding: 20px;">
+                    <h3 style="color: #00d4ff; margin-bottom: 30px;">Live AI Coaching Session</h3>
+                    <div style="background: #111; border-radius: 10px; padding: 30px; margin: 20px 0;">
+                        <p style="text-align: left; font-family: monospace; font-size: 1.1rem; line-height: 1.8;">
+                            <span style="color: #00d4ff;">AI Doctor:</span> "I don't see why I should switch from my current supplier..."<br><br>
+                            <span style="color: #0f9;">Sales Rep:</span> "I understand your concern. What specific outcomes are most important to you?"<br><br>
+                            <span style="color: #f90;">AI Feedback:</span> Great job! You acknowledged their concern and asked an open-ended question. Try adding a success story next.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">5 / 12</div>
+        </div>
+
+        <!-- Slide 6: Success Story -->
+        <div class="slide">
+            <h2>Proven Results: Vvardis Case Study</h2>
+            <div class="stat-row">
+                <div class="stat-item">
+                    <div class="metric">300%</div>
+                    <div class="metric-label">Sales Increase</div>
+                </div>
+                <div class="stat-item">
+                    <div class="metric">90</div>
+                    <div class="metric-label">Days</div>
+                </div>
+                <div class="stat-item">
+                    <div class="metric">85%</div>
+                    <div class="metric-label">Rep Adoption</div>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-style: italic;">
+                "The AI training system transformed our mid-level performers into closers. It's like having our top rep training everyone 24/7."
+            </p>
+            <p style="color: #666;">- VP of Sales, Vvardis</p>
+            <div class="slide-number">6 / 12</div>
+        </div>
+
+        <!-- Slide 7: Features -->
+        <div class="slide">
+            <h2>Complete Sales Acceleration Platform</h2>
+            <ul class="feature-list">
+                <li>AI phone calls that simulate real doctor conversations</li>
+                <li>SMS and email reinforcement of key learning points</li>
+                <li>Personalized training paths based on individual gaps</li>
+                <li>Real-time performance dashboards and analytics</li>
+                <li>Integration with your CRM and sales tools</li>
+                <li>Competitive leaderboards and gamification</li>
+            </ul>
+            <div class="slide-number">7 / 12</div>
+        </div>
+
+        <!-- Slide 8: ROI -->
+        <div class="slide">
+            <h2>Your Return on Investment</h2>
+            <div class="roi-calculator">
+                <h3>Investment Analysis</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 30px 0;">
+                    <div>
+                        <h4 style="color: #f66; margin-bottom: 20px;">Your Investment</h4>
+                        <p>Setup: $50,000</p>
+                        <p>Monthly: $20,000</p>
+                        <p>Year 1 Total: $290,000</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #0f9; margin-bottom: 20px;">Expected Return</h4>
+                        <p>10% sales increase</p>
+                        <p>= $5M additional revenue</p>
+                        <p><strong>ROI: 1,624%</strong></p>
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: 1.5rem; color: #00d4ff; margin-top: 20px;">
+                    Payback Period: <strong>6 weeks</strong>
+                </p>
+            </div>
+            <div class="slide-number">8 / 12</div>
+        </div>
+
+        <!-- Slide 9: Implementation -->
+        <div class="slide">
+            <h2>Fast, Proven Implementation</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Week 1-2</h3>
+                    <p>Capture knowledge from your top performers</p>
+                </div>
+                <div class="card">
+                    <h3>Week 3-4</h3>
+                    <p>Launch pilot with 10 reps</p>
+                </div>
+                <div class="card">
+                    <h3>Week 5-12</h3>
+                    <p>Full deployment & optimization</p>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-size: 1.3rem;">
+                Most clients see measurable results within <span class="highlight">30 days</span>
+            </p>
+            <div class="slide-number">9 / 12</div>
+        </div>
+
+        <!-- Slide 10: Differentiators -->
+        <div class="slide">
+            <h2>Why We're Different</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🚀 Scalable</h3>
+                    <p>Train 100 reps as easily as 10</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 Personalized</h3>
+                    <p>Adapts to each rep's needs</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Measurable</h3>
+                    <p>Track ROI in real-time</p>
+                </div>
+            </div>
+            <p style="margin-top: 40px;">
+                Built by top engineers from Google and leading L&D experts
+            </p>
+            <div class="slide-number">10 / 12</div>
+        </div>
+
+        <!-- Slide 11: Next Steps -->
+        <div class="slide">
+            <h2>Let's Get Started</h2>
+            <div style="text-align: center; max-width: 1000px;">
+                <h3 style="margin-bottom: 40px;">Three Simple Options</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Pilot Program</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">5 reps FREE for 60 days</p>
+                        <p style="color: #00d4ff; font-size: 1rem;">✓ Full access to all features</p>
+                        <p style="color: #00d4ff; font-size: 1rem;">✓ Success metrics tracking</p>
+                        <p class="highlight" style="margin-top: 20px;">$0 with Letter of Intent</p>
+                    </div>
+                    <div class="card" style="border: 2px solid #00d4ff;">
+                        <h3>Growth Package</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">Perfect for scaling teams</p>
+                        <p style="text-decoration: line-through; color: #666;">$50K setup</p>
+                        <p style="color: #0f9; font-weight: bold;">$10K setup (80% off!)</p>
+                        <p class="highlight">+ $400/month per rep</p>
+                        <p style="font-size: 0.9rem; color: #999; margin-top: 10px;">*12-month minimum commitment</p>
+                    </div>
+                    <div class="card">
+                        <h3>Enterprise</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">Unlimited customization</p>
+                        <p style="font-size: 0.95rem; color: #ccc; text-align: left; margin-top: 15px;">
+                        • Custom AI personality development<br>
+                        • Dedicated engineering team<br>
+                        • API integrations with your tech stack<br>
+                        • White-label options available<br>
+                        • Priority feature development<br>
+                        • Quarterly business reviews
+                        </p>
+                        <p class="highlight" style="margin-top: 20px;">Custom Pricing</p>
+                    </div>
+                </div>
+                <button class="cta-button">Schedule Your Demo</button>
+            </div>
+            <div class="slide-number">11 / 12</div>
+        </div>
+
+        <!-- Slide 12: Contact -->
+        <div class="slide">
+            <h1>Ready to Scale Your Sales?</h1>
+            <p class="subtitle">Join Vvardis, Straumann, and others achieving extraordinary growth</p>
+            <div style="margin: 40px 0;">
+                <p style="font-size: 1.8rem; margin: 20px 0;">📧 ops@coveofedu.org</p>
+                <p style="font-size: 1.8rem; margin: 20px 0;">📱 1-323-675-9654</p>
+                <p style="font-size: 1.8rem; margin: 20px 0;">🌐 www.coveofedu.org/sales</p>
+            </div>
+            <button class="cta-button">Get Your Custom ROI Report</button>
+            <div class="slide-number">12 / 12</div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button" onclick="previousSlide()">← Previous</button>
+            <button class="nav-button" onclick="nextSlide()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateProgressBar();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+            if (e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            }
+        });
+
+        // Initialize progress bar
+        updateProgressBar();
+
+        // Add touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) previousSlide();
+        }
+    </script>
+</body>
+</html>
