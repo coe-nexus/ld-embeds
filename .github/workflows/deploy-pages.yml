@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # Need write permission for peaceiris/actions-gh-pages
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -14,21 +14,30 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v4  # Updated to v4
+      uses: actions/checkout@v4
     
     - name: Setup Node.js
-      uses: actions/setup-node@v4  # Updated to v4
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
+    
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json', '**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
     
     - name: Build all apps
       run: |
         # Create output directory
         mkdir -p dist
         
-        # Copy static files
-        cp -r static/* dist/
+        # Copy static files (if they exist)
+        if [ -d "static" ] && [ "$(ls -A static)" ]; then
+          cp -r static/* dist/
+        fi
 
         # Build each React app
         for app in react-apps/*; do
@@ -36,7 +45,14 @@ jobs:
             app_name=$(basename "$app")
             echo "Building $app_name..."
             cd "$app"
-            npm install
+            
+            # Install dependencies
+            if [ -f "package-lock.json" ]; then
+              npm ci
+            else
+              npm install
+            fi
+            
             npm run build || exit 1
             mkdir -p "../../dist/$app_name"
             cp -r build/* "../../dist/$app_name/"
