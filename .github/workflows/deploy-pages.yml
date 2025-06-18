@@ -54,8 +54,8 @@ jobs:
                 npm install
               fi
               
-              # Build with PUBLIC_URL set to the subdirectory
-              PUBLIC_URL="/ld-embeds/$app_name" npm run build || exit 1
+              # Build with base path for Vite
+              npm run build -- --base=/ld-embeds/$app_name/ || exit 1
               
               # Copy build output to dist/app_name
               mkdir -p "../../dist/$app_name"
