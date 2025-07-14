@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - COE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Note: FS Rome is a premium font. If you have a license, add the @font-face declaration here.
+           Otherwise, it will fall back to Georgia and other serif fonts. */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comfortaa', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #E10000 0%, #2E3D1E 100%);
+            width: 0%;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px rgba(225, 0, 0, 0.5);
+        }
+
+        .nav-menu {
+            background-color: #2c2c2c;
+            padding: 15px 0;
+            position: sticky;
+            top: 4px; /* Account for progress bar */
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #E10000;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #E10000 0%, #2E3D1E 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-section h2 {
+            font-family: 'FS Rome', Georgia, 'Times New Roman', serif;
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .faq-category {
+            margin-bottom: 50px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+
+        .faq-category h3 {
+            font-family: 'FS Rome', Georgia, 'Times New Roman', serif;
+            font-size: 2em;
+            color: #2E3D1E;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .faq-item {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .question {
+            font-family: 'FS Rome', Georgia, 'Times New Roman', serif;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .question:hover {
+            color: #2E3D1E;
+        }
+
+        .question::before {
+            content: "Q: ";
+            color: #E10000;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .answer {
+            color: #555;
+            line-height: 1.8;
+            padding-left: 35px;
+        }
+
+        .answer strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .answer ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .answer li {
+            margin-bottom: 10px;
+        }
+
+        .example-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #E10000;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .example-box strong {
+            color: #2E3D1E;
+        }
+
+        .cta-section {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #E10000 0%, #2E3D1E 100%);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(225, 0, 0, 0.4);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #E10000 0%, #2E3D1E 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h2 {
+                font-size: 2em;
+            }
+            
+            .faq-category {
+                padding: 20px;
+            }
+            
+            .faq-category h3 {
+                font-size: 1.5em;
+            }
+            
+            .question {
+                font-size: 1.1em;
+            }
+            
+            .answer {
+                padding-left: 25px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <nav class="nav-menu">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#general">General</a></li>
+                <li><a href="#emotional">Emotional Challenges</a></li>
+                <li><a href="#approach">Our Approach</a></li>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#results">Results</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <p>Discover how COE transforms universal principles into personal breakthroughs</p>
+        </div>
+    </section>
+
+    <div class="faq-container">
+        <section class="faq-category" id="general">
+            <h3>General Questions</h3>
+            
+            <div class="faq-item">
+                <h4 class="question">What age group does COE serve?</h4>
+                <div class="answer">
+                    <strong>COE is designed for individuals aged 16 and above</strong> who are ready to take responsibility for their own transformation and growth.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">What types of issues does COE address?</h4>
+                <div class="answer">
+                    COE provides both universal principles and individualized approaches to life challenges. While we teach core concepts that apply to everyone, we recognize that each person's situation requires a unique application of these principles.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">How is COE different from other self-help programs?</h4>
+                <div class="answer">
+                    COE focuses on teaching you to <strong>discern which information actually works</strong> versus what sounds good but doesn't create real change. We emphasize practical application over theoretical knowledge, helping you understand not just what to do, but why certain approaches work while others don't.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">Do you provide individual coaching or group sessions?</h4>
+                <div class="answer">
+                    COE offers both formats to meet different learning preferences and needs:
+                    <ul>
+                        <li><strong>Individual sessions:</strong> Personalized guidance tailored to your specific situation and challenges</li>
+                        <li><strong>Group sessions:</strong> Learn alongside others facing similar challenges while benefiting from diverse perspectives</li>
+                    </ul>
+                    Both approaches focus on practical application rather than theoretical discussion.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">What is your approach to lasting change?</h4>
+                <div class="answer">
+                    We focus on <strong>identity-level transformation</strong> rather than surface-level behavior modification. Our approach addresses:
+                    <ul>
+                        <li>Understanding how your mind creates your reality</li>
+                        <li>Identifying and changing limiting belief patterns</li>
+                        <li>Building new neural pathways through consistent practice</li>
+                        <li>Developing sustainable habits that align with your desired identity</li>
+                    </ul>
+                    This creates change that lasts because it comes from within, not from external pressure or motivation.
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-category" id="emotional">
+            <h3>Emotional Challenges</h3>
+            
+            <div class="faq-item">
+                <h4 class="question">Can COE help with anxiety and depression?</h4>
+                <div class="answer">
+                    COE teaches universal principles that address the root causes of emotional suffering. While we don't provide medical treatment, our approach helps you understand how your thoughts create your emotional experience and provides practical tools for:
+                    <ul>
+                        <li>Recognizing and interrupting negative thought patterns</li>
+                        <li>Building emotional resilience</li>
+                        <li>Creating new neural pathways for positive thinking</li>
+                        <li>Developing a stronger sense of self and purpose</li>
+                    </ul>
+                    <strong>Note:</strong> For severe mental health conditions, we recommend working with qualified mental health professionals alongside our program.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">How do you address fear and limiting beliefs?</h4>
+                <div class="answer">
+                    Fear and limiting beliefs are simply learned patterns that can be unlearned. Our process involves:
+                    <div class="example-box">
+                        <strong>Example:</strong> If you believe "I'm not good enough," we help you trace this belief to its origin, understand how it was formed, and systematically replace it with evidence-based, empowering beliefs about your capabilities.
+                    </div>
+                    We don't just tell you to "think positive"—we show you exactly how beliefs are formed and how to consciously create new ones that serve your goals.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">What if I've tried therapy or other programs without success?</h4>
+                <div class="answer">
+                    Many people come to COE after trying multiple approaches. The difference often lies in our focus on <strong>practical application over endless analysis</strong>. While understanding your past can be valuable, lasting change comes from:
+                    <ul>
+                        <li>Learning how to consciously direct your thoughts</li>
+                        <li>Building new habits that reinforce your desired identity</li>
+                        <li>Taking consistent action despite fear or resistance</li>
+                        <li>Measuring progress by results, not just insights</li>
+                    </ul>
+                    We teach you to become your own therapist, capable of creating change whenever you need it.
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-category" id="approach">
+            <h3>Our Approach</h3>
+            
+            <div class="faq-item">
+                <h4 class="question">What makes your methods effective?</h4>
+                <div class="answer">
+                    Our effectiveness comes from combining <strong>universal principles</strong> with <strong>individualized application</strong>. We teach you:
+                    <ul>
+                        <li>How your brain actually creates change (neuroplasticity)</li>
+                        <li>Why most people fail to change and how to avoid those pitfalls</li>
+                        <li>Specific techniques for reprogramming your subconscious mind</li>
+                        <li>How to maintain motivation when initial enthusiasm fades</li>
+                    </ul>
+                    Most importantly, we focus on <strong>implementation</strong>, not just information. You'll leave each session with specific actions to take.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">How do you measure success and progress?</h4>
+                <div class="answer">
+                    Success in COE is measured by <strong>real-world results</strong>, not just how you feel in sessions. We track progress through:
+                    <ul>
+                        <li>Specific behavioral changes in your daily life</li>
+                        <li>Achievement of goals you set at the beginning</li>
+                        <li>Your ability to handle challenges that previously overwhelmed you</li>
+                        <li>Increased confidence in your ability to create change</li>
+                    </ul>
+                    <div class="example-box">
+                        <strong>Example:</strong> Instead of just feeling better about public speaking, you'll actually give presentations at work, volunteer to speak at events, or start that YouTube channel you've been thinking about.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">Do you use any specific methodologies or techniques?</h4>
+                <div class="answer">
+                    COE integrates proven techniques from multiple disciplines:
+                    <ul>
+                        <li><strong>Cognitive restructuring:</strong> Identifying and changing thought patterns</li>
+                        <li><strong>Neurofeedback principles:</strong> Training your brain for optimal performance</li>
+                        <li><strong>Behavioral psychology:</strong> Creating sustainable habit change</li>
+                        <li><strong>Mindfulness practices:</strong> Developing present-moment awareness</li>
+                        <li><strong>Goal-setting science:</strong> Turning visions into actionable plans</li>
+                    </ul>
+                    However, we don't get caught up in any single methodology. We use whatever works for your specific situation.
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-category" id="getting-started">
+            <h3>Getting Started</h3>
+            
+            <div class="faq-item">
+                <h4 class="question">What happens in the first session?</h4>
+                <div class="answer">
+                    Your first session focuses on <strong>clarity and foundation-building</strong>:
+                    <ul>
+                        <li>We identify exactly what you want to change and why</li>
+                        <li>We uncover the specific patterns keeping you stuck</li>
+                        <li>We create a clear plan for your transformation</li>
+                        <li>You learn your first practical technique to use immediately</li>
+                    </ul>
+                    By the end of your first session, you'll have both insight into your situation and actionable steps to begin creating change.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">How long does the program take?</h4>
+                <div class="answer">
+                    The timeline varies based on your goals and commitment level. However, most people experience:
+                    <ul>
+                        <li><strong>Initial shifts:</strong> Within the first 2-3 sessions</li>
+                        <li><strong>Significant changes:</strong> Within 6-8 weeks of consistent application</li>
+                        <li><strong>Deep transformation:</strong> 3-6 months for fundamental identity shifts</li>
+                    </ul>
+                    <strong>The key factor is your willingness to apply what you learn consistently.</strong> We provide the roadmap; your commitment determines the speed of your journey.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">What commitment is required from me?</h4>
+                <div class="answer">
+                    COE requires genuine commitment to change, not just passive participation. This includes:
+                    <ul>
+                        <li>Attending sessions consistently</li>
+                        <li>Completing assigned exercises between sessions</li>
+                        <li>Being honest about your progress and challenges</li>
+                        <li>Taking action even when you don't feel like it</li>
+                    </ul>
+                    <strong>We work with people who are serious about transformation, not those looking for quick fixes or magical solutions.</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-category" id="results">
+            <h3>Results & Outcomes</h3>
+            
+            <div class="faq-item">
+                <h4 class="question">What kind of results can I expect?</h4>
+                <div class="answer">
+                    Results vary based on your starting point and goals, but common outcomes include:
+                    <ul>
+                        <li>Increased confidence in your ability to handle any situation</li>
+                        <li>Clear direction and purpose in your life</li>
+                        <li>Better relationships due to improved self-understanding</li>
+                        <li>Achievement of specific goals you've been struggling with</li>
+                        <li>Reduced anxiety and increased emotional stability</li>
+                        <li>Greater resilience when facing challenges</li>
+                    </ul>
+                    <strong>Most importantly, you'll develop the skills to continue growing and changing throughout your life.</strong>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">How do I know if COE is right for me?</h4>
+                <div class="answer">
+                    COE is ideal for you if you:
+                    <ul>
+                        <li>Are tired of collecting information without seeing real change</li>
+                        <li>Want to understand the 'why' behind effective techniques</li>
+                        <li>Are willing to take responsibility for your results</li>
+                        <li>Prefer practical application over theoretical discussion</li>
+                        <li>Are committed to doing the work, not just attending sessions</li>
+                    </ul>
+                    <strong>COE is NOT for people looking for someone else to fix their problems or those unwilling to take consistent action.</strong>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h4 class="question">Why do you say your principles are simple but not easy?</h4>
+                <div class="answer">
+                    The principles we teach are fundamentally simple to understand—they're based on how your mind actually works. The complexity lies not in understanding them, but in:
+                    <ul>
+                        <li>Consistently applying them</li>
+                        <li>Overcoming resistance to change</li>
+                        <li>Breaking old patterns</li>
+                        <li>Building new neural pathways</li>
+                    </ul>
+                    <strong>Simple doesn't mean easy—it means clear and actionable.</strong>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Progress Bar Functionality
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        }
+
+        // Update progress bar on scroll
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize progress bar
+        updateProgressBar();
+    </script>
+</body>
+</html>
