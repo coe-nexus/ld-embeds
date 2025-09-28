@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCEND - Your Year of Transformation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #ffffff;
+            color: #1C1C1C;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .accent-line {
+            width: 60px;
+            height: 2px;
+            background: #8B0020;
+            margin-bottom: 40px;
+        }
+        
+        .headline {
+            font-size: 2.8em;
+            font-weight: 300;
+            line-height: 1.2;
+            color: #1C1C1C;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+        
+        .subheadline {
+            font-size: 1.3em;
+            color: #2d3d1f;
+            font-style: italic;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+        
+        .pain-points {
+            margin-bottom: 60px;
+        }
+        
+        .pain-point {
+            margin-bottom: 30px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1em;
+            color: #333;
+        }
+        
+        .pain-point::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 8px;
+            height: 1px;
+            background: #8B0020;
+        }
+        
+        .breakthrough {
+            background: #F8F4E6;
+            padding: 50px 40px;
+            margin: 60px -20px;
+            position: relative;
+        }
+        
+        .breakthrough::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #8B0020 0%, #2d3d1f 100%);
+        }
+        
+        .breakthrough h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 300;
+            color: #1C1C1C;
+        }
+        
+        .promise {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .timeline {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 50px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .timeline-item {
+            padding: 30px;
+            background: white;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .timeline-item .time {
+            color: #8B0020;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .timeline-item .result {
+            font-size: 1.1em;
+            color: #1C1C1C;
+        }
+        
+        .transformation-list {
+            margin: 50px 0;
+            padding-left: 0;
+        }
+        
+        .transformation-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: baseline;
+        }
+        
+        .transformation-item span {
+            color: #2d3d1f;
+            font-size: 1.5em;
+            margin-right: 15px;
+            font-weight: 200;
+        }
+        
+        .what-you-get {
+            margin: 80px 0;
+        }
+        
+        .what-you-get h2 {
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .offering {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .offering:last-child {
+            border-bottom: none;
+        }
+        
+        .offering h3 {
+            color: #8B0020;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 400;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 100px;
+            padding: 60px 40px;
+            background: #1C1C1C;
+            color: white;
+        }
+        
+        .final-question {
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 25px 60px;
+            background: #8B0020;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 2px solid #8B0020;
+            font-weight: 400;
+        }
+        
+        .cta-button:hover {
+            background: transparent;
+            color: #8B0020;
+            border-color: #8B0020;
+        }
+        
+        .disclaimer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            font-style: italic;
+        }
+        
+        .icon-strip {
+            margin: 60px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .icon-item {
+            text-align: center;
+        }
+        
+        .icon-item svg {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .icon-item p {
+            margin-top: 15px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #2d3d1f;
+        }
+        
+        .testimonial {
+            font-style: italic;
+            font-size: 1.2em;
+            padding: 40px;
+            border-left: 3px solid #8B0020;
+            margin: 60px 0;
+            background: rgba(248, 244, 230, 0.3);
+        }
+        
+        .testimonial-author {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="accent-line"></div>
+        
+        <h1 class="headline">Your Life Is Calling For Something More</h1>
+        
+        <p class="subheadline">
+            And deep down, you already know it.
+        </p>
+        
+        <div class="pain-points">
+            <div class="pain-point">
+                Do you feel like you're spinning your wheels but not going anywhere?
+            </div>
+            <div class="pain-point">
+                Are you overwhelmed with responsibilities and chores that bring neither clarity nor focus?
+            </div>
+            <div class="pain-point">
+                Do conflicting priorities pull you in opposite directions, leaving you exhausted and unaligned?
+            </div>
+        </div>
+        
+        <p style="font-size: 1.3em; margin: 40px 0; font-weight: 600; color: #8B0020;">
+            That inkling of doubt about your path? That's your intuition screaming for change.
+        </p>
+        
+        <div class="breakthrough">
+            <h2>Here's What I Know About You...</h2>
+            <p class="promise">
+                You're brilliant. Capable. Accomplished by most measures. Yet something essential is missing.
+            </p>
+            <p class="promise">
+                You've read the books. Downloaded the apps. Tried the morning routines. But transformation remains elusive because you're trying to think your way through a problem that requires a complete system overhaul.
+            </p>
+            <p class="promise">
+                <strong>You don't need more information. You need integration.</strong>
+            </p>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="time">After 1 Week</div>
+                <div class="result">You'll feel the shift. Clarity replacing confusion. Energy replacing exhaustion.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">After 3 Months</div>
+                <div class="result">Old patterns dissolve. New capabilities emerge. People notice something different about you.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">After 6 Months</div>
+                <div class="result">Your reality begins to bend. Opportunities appear. Synchronicities multiply.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">After 12 Months</div>
+                <div class="result">You become unrecognizable to your former self. Living proof of what's possible.</div>
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            "Through this journey, I've discovered forgiveness, healing, precision, clarity, levity, and a bone-deep confidence I never knew existed. This isn't self-improvement. It's self-revolution."
+            <div class="testimonial-author">— Founder's Personal Transformation</div>
+        </div>
+        
+        <div class="icon-strip">
+            <div class="icon-item">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="35" fill="none" stroke="#8B0020" stroke-width="2"/>
+                    <circle cx="50" cy="35" r="12" fill="#F8F4E6"/>
+                    <rect x="42" y="55" width="16" height="12" fill="none" stroke="#2d3d1f" stroke-width="2"/>
+                    <line x1="50" y1="55" x2="50" y2="67" stroke="#2d3d1f" stroke-width="2"/>
+                </svg>
+                <p>Focus</p>
+            </div>
+            <div class="icon-item">
+                <svg viewBox="0 0 100 100">
+                    <rect x="35" y="35" width="30" height="30" fill="none" stroke="#2d3d1f" stroke-width="3"/>
+                    <rect x="30" y="30" width="40" height="40" fill="none" stroke="#2d3d1f" stroke-width="2" opacity="0.5"/>
+                    <rect x="25" y="25" width="50" height="50" fill="none" stroke="#2d3d1f" stroke-width="1" opacity="0.3"/>
+                    <path d="M50 65 L50 40" stroke="#8B0020" stroke-width="3" marker-end="url(#arrow)"/>
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                            <path d="M0,0 L10,5 L0,10" fill="none" stroke="#8B0020" stroke-width="2"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p>Growth</p>
+            </div>
+            <div class="icon-item">
+                <svg viewBox="0 0 100 100">
+                    <path d="M25 75 L50 25 L75 75 Z" fill="none" stroke="#1C1C1C" stroke-width="3"/>
+                    <path d="M35 65 L50 35 L65 65 Z" fill="#F8F4E6"/>
+                    <rect x="42" y="42" width="16" height="18" fill="none" stroke="#8B0020" stroke-width="2"/>
+                </svg>
+                <p>Resilience</p>
+            </div>
+            <div class="icon-item">
+                <svg viewBox="0 0 100 100">
+                    <path d="M50 20 L70 50 L50 80 L30 50 Z" fill="none" stroke="#8B0020" stroke-width="3"/>
+                    <path d="M50 30 L65 50 L50 70 L35 50 Z" fill="#F8F4E6" opacity="0.5"/>
+                    <circle cx="50" cy="20" r="5" fill="#8B0020"/>
+                </svg>
+                <p>Achievement</p>
+            </div>
+        </div>
+        
+        <div class="what-you-get">
+            <h2>For One Year, I Become Your Secret Weapon</h2>
+            
+            <div class="offering">
+                <h3>Your Strategic Guide</h3>
+                <p>Weekly precision coaching that cuts through the noise. No generic advice. Only what moves the needle for your specific situation.</p>
+            </div>
+            
+            <div class="offering">
+                <h3>Your Performance Optimizer</h3>
+                <p>Biohacking protocols that actually work. Nutritional guidance at Examine.com depth. Sleep systems that transform your energy. The unfair advantages the ultra-successful guard closely.</p>
+            </div>
+            
+            <div class="offering">
+                <h3>Your Reality Architect</h3>
+                <p>Master the principles of reality transurfing. Learn to bend circumstances to your will. Create synchronicities on demand.</p>
+            </div>
+            
+            <div class="offering">
+                <h3>Your Career Accelerator</h3>
+                <p>Whether building a company or climbing the ladder, gain the strategic clarity that creates exponential results.</p>
+            </div>
+            
+            <div class="offering">
+                <h3>Your Relationship Alchemist</h3>
+                <p>Deepen bonds with partners, friends, and most importantly—yourself. Learn the communication patterns that create unshakeable connections.</p>
+            </div>
+            
+            <div class="offering">
+                <h3>Your Private Council</h3>
+                <p>Join a curated mastermind of 30 extraordinary individuals. Iron sharpens iron, and you'll be surrounded by those committed to excellence.</p>
+            </div>
+        </div>
+        
+        <div class="transformation-list">
+            <div class="transformation-item">
+                <span>→</span>
+                <div>Replace confusion with crystalline clarity</div>
+            </div>
+            <div class="transformation-item">
+                <span>→</span>
+                <div>Transform overwhelm into orchestrated action</div>
+            </div>
+            <div class="transformation-item">
+                <span>→</span>
+                <div>Convert potential into undeniable results</div>
+            </div>
+            <div class="transformation-item">
+                <span>→</span>
+                <div>Shift from searching to knowing</div>
+            </div>
+            <div class="transformation-item">
+                <span>→</span>
+                <div>Move from existing to truly living</div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2 class="final-question">
+                Will You Still Be Having This Same Conversation With Yourself Next Year?
+            </h2>
+            <p style="font-size: 1.2em; margin-bottom: 40px;">
+                Or will you be living proof of what's possible when you finally say yes to your transformation?
+            </p>
+            <a href="https://realitymasteryclub.as.me/ascend" class="cta-button">Claim Your Spot</a>
+            <p class="disclaimer">
+                Applications require completion of our alignment questionnaire.<br>
+                Your call will be cancelled if the form isn't submitted.<br>
+                We only accept those ready to commit fully to their evolution.
+            </p>
+            <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.7;">
+                Limited to 30 members. 23 spaces remaining.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
