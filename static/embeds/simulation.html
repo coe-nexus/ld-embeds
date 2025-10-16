@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Simulation Game</title>
+  <style>
+   * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); padding: 40px 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center; } .container { max-width: 700px; width: 700px; background: white; border-radius: 24px; padding: 50px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); } .header { text-align: center; margin-bottom: 60px; } .header h1 { font-size: 42px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; letter-spacing: -0.5px; } .header p { font-size: 20px; color: #96A5BA; font-weight: 400; } .journey-container { position: relative; display: flex; align-items: center; justify-content: space-between; margin: 80px 0; min-height: 200px; padding: 0 20px; } .journey-line { position: absolute; left: 200px; right: 200px; top: 50%; height: 4px; background: linear-gradient(90deg, #598AC1 0%, #96A5BA 100%); border-radius: 2px; z-index: 1; transform: translateY(-50%); } .journey-dots { position: absolute; left: 200px; right: 200px; top: 50%; transform: translateY(-50%); display: flex; justify-content: space-evenly; align-items: center; z-index: 2; height: 20px; } .dot { width: 20px; height: 20px; background: linear-gradient(135deg, #598AC1 0%, #96A5BA 100%); border-radius: 50%; box-shadow: 0 3px 10px rgba(89, 138, 193, 0.4); border: 3px solid white; } .self-circle { width: 180px; height: 180px; border-radius: 50%; background: white; border: 3px solid #598AC1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 3; position: relative; box-shadow: 0 8px 24px rgba(89, 138, 193, 0.15); } .self-circle h3 { font-size: 22px; font-weight: 600; color: #2c3e50; line-height: 1.3; } .self-circle.expanded { border-color: #D2C0B3; box-shadow: 0 8px 24px rgba(210, 192, 179, 0.2); } .self-circle.expanded h3 { font-size: 20px; } .elements-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 60px 0; width: 100%; } .element-card { background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 20px; padding: 32px 24px; text-align: center; position: relative; overflow: hidden; border: 2px solid transparent; transition: all 0.3s ease; min-width: 0; } .element-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #598AC1 0%, #96A5BA 100%); } .element-card.environment::before { background: linear-gradient(90deg, #D2C0B3 0%, #96A5BA 100%); } .element-card.events::before { background: linear-gradient(90deg, #96A5BA 0%, #598AC1 100%); } .element-card h3 { font-size: 20px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; } .element-card p { font-size: 15px; color: #5a6c7d; line-height: 1.6; } .principles-box { background: linear-gradient(135deg, #f8f4f1 0%, #ffffff 100%); border: 2px solid #D2C0B3; border-radius: 24px; padding: 40px; margin-top: 40px; } .principles-box h3 { font-size: 28px; font-weight: 600; color: #2c3e50; margin-bottom: 28px; text-align: center; } .principle-item { display: flex; align-items: flex-start; margin-bottom: 24px; gap: 16px; } .principle-item:last-child { margin-bottom: 0; } .principle-number { width: 36px; height: 36px; background: linear-gradient(135deg, #598AC1 0%, #96A5BA 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(89, 138, 193, 0.2); } .principle-text { flex: 1; font-size: 16px; color: #2c3e50; line-height: 1.6; padding-top: 6px; } .footer { text-align: center; margin-top: 50px; font-size: 14px; color: #96A5BA; } @media (max-width: 768px) { body { padding: 20px 10px; } .container { padding: 30px 20px; width: 100%; } .header h1 { font-size: 32px; } .header p { font-size: 16px; } .journey-container { flex-direction: column; gap: 40px; margin: 40px 0; padding: 0; } .journey-line { left: 50%; top: 90px; bottom: 90px; width: 4px; height: auto; transform: translateX(-50%); background: linear-gradient(180deg, #598AC1 0%, #96A5BA 100%); right: auto; } .journey-dots { left: 50%; top: 90px; bottom: 90px; flex-direction: column; transform: translateX(-50%); right: auto; } .elements-container { grid-template-columns: 1fr; gap: 20px; } .self-circle { width: 160px; height: 160px; } .self-circle h3 { font-size: 18px; } .principles-box { padding: 30px 20px; } }</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <h1>The Simulation Game</h1>
+  <p>The Journey from Conditioned Self to Limitless Potential</p>
+</div>
+<div class="journey-container">
+<div class="self-circle">
+  <h3>Conditioned<br>Self</h3>
+</div>
+<div class="journey-line"></div>
+<div class="journey-dots">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+  <div class="dot"></div>
+  </div>
+  <div class="self-circle expanded">
+    <h3>Potential Self<br><span style="font-size: 15px; color: #96A5BA; font-weight: 400;">(Limitless Potential)</span></h3>
+  </div>
+</div>
+<div class="elements-container">
+  <div class="element-card">
+    <h3>People = Actors</h3>
+    <p>Placed in your surroundings to entertain yourself</p>
+  </div>
+  <div class="element-card events">
+    <h3>Events = Challenges & Opportunities</h3>
+    <p>To develop your potential self better</p>
+  </div>
+  <div class="element-card environment">
+    <h3>Environment</h3>
+    <p>People you choose to "fix" something for becomes your profession & environment</p>
+  </div>
+</div>
+<div class="principles-box">
+<h3>Principles of Awareness</h3>
+<div class="principle-item">
+<div class="principle-number">1</div>
+<div class="principle-text">Nothing "new" can be created into the game. Just found, fused, or uncovered.</div>
+</div>
+<div class="principle-item">
+<div class="principle-number">2</div>
+<div class="principle-text">The actors aren't real. Just projections of your manifestation of the simulation.</div>
+</div>
+<div class="principle-item">
+<div class="principle-number">3</div>
+<div class="principle-text">You don't respawn if you give up. You're placed in a new handicap until you can succeed at that difficulty level.</div>
+</div>
+<div class="principle-item">
+<div class="principle-number">4</div>
+  <div class="principle-text">You need insider knowledge to move faster in reaching your potential self.</div>
+  </div>
+</div>
+<div class="footer">
+   © Evolving through the Simulation Game</div>
+</div>
