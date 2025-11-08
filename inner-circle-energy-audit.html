@@ -262,47 +262,322 @@
         }
 
         /* Responsive Design */
+
+        /* Tablet and below (landscape tablets, iPads) */
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: 20px;
+            }
+
+            .audit-table table {
+                min-width: 700px;
+            }
+        }
+
+        /* Mobile Landscape & Small Tablets */
         @media screen and (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
             .container {
                 padding: 15px;
+                border-radius: 6px;
+            }
+
+            .tab-navigation {
+                gap: 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+            }
+
+            .tab-navigation::-webkit-scrollbar {
+                display: none; /* Chrome, Safari */
             }
 
             .tab-button {
                 font-size: 11px;
-                padding: 12px 10px;
+                padding: 12px 15px;
+                white-space: nowrap;
+                min-width: 100px;
             }
 
             .tab-content h2 {
                 font-size: 20px;
+                margin-bottom: 15px;
             }
 
+            .tab-content p {
+                font-size: 14px;
+            }
+
+            .tab-content li {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            .rating-scale {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .reflection-question {
+                padding: 15px;
+                font-size: 14px;
+            }
+
+            .calculator-section {
+                margin-top: 30px;
+                padding-top: 20px;
+            }
+
+            /* Make table scrollable with better UX */
             .audit-table {
                 font-size: 12px;
+                border-radius: 6px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            .audit-table table {
+                min-width: 600px;
             }
 
             .audit-table th {
-                font-size: 11px;
-                padding: 10px 4px;
+                font-size: 10px;
+                padding: 10px 6px;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+
+            .audit-table td {
+                padding: 6px 4px;
             }
 
             .audit-table input[type="number"] {
-                width: 50px;
-                padding: 6px;
+                width: 45px;
+                padding: 6px 4px;
+                font-size: 13px;
             }
 
             .audit-table input[type="text"] {
                 padding: 6px;
+                font-size: 13px;
+            }
+
+            .add-person-btn {
+                width: 100%;
+                padding: 14px;
+                font-size: 15px;
+            }
+
+            .example-toggle {
+                padding: 12px 16px;
+                font-size: 15px;
             }
         }
 
+        /* Mobile Portrait (most phones) */
         @media screen and (max-width: 480px) {
             body {
                 padding: 10px;
             }
 
+            .container {
+                padding: 12px;
+            }
+
             .tab-button {
+                font-size: 9px;
+                padding: 10px 8px;
+                min-width: 80px;
+            }
+
+            .tab-content h2 {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            .tab-content p {
+                font-size: 13px;
+                margin-bottom: 12px;
+            }
+
+            .tab-content ul {
+                padding-left: 20px;
+                margin: 15px 0;
+            }
+
+            .tab-content li {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+
+            .rating-scale {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .reflection-question {
+                padding: 12px;
+                font-size: 13px;
+            }
+
+            .calculator-section {
+                margin-top: 25px;
+                padding-top: 20px;
+            }
+
+            /* Optimize table for very small screens */
+            .audit-table {
+                font-size: 11px;
+            }
+
+            .audit-table table {
+                min-width: 500px;
+            }
+
+            .audit-table th {
+                font-size: 9px;
+                padding: 8px 3px;
+                line-height: 1.2;
+            }
+
+            .audit-table td {
+                padding: 5px 2px;
+            }
+
+            .audit-table input[type="number"] {
+                width: 38px;
+                padding: 5px 2px;
+                font-size: 12px;
+            }
+
+            .audit-table input[type="text"] {
+                padding: 5px 4px;
+                font-size: 12px;
+            }
+
+            .total-cell {
+                font-size: 14px;
+            }
+
+            .add-person-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .example-toggle {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .example-content.expanded {
+                max-height: 600px;
+            }
+        }
+
+        /* Very Small Mobile Devices (older/smaller phones) */
+        @media screen and (max-width: 360px) {
+            .container {
+                padding: 8px;
+            }
+
+            .tab-button {
+                font-size: 8px;
+                padding: 8px 6px;
+                min-width: 70px;
+            }
+
+            .audit-table table {
+                min-width: 450px;
+            }
+
+            .audit-table th {
+                font-size: 8px;
+                padding: 6px 2px;
+            }
+
+            .audit-table input[type="number"] {
+                width: 35px;
+                padding: 4px 2px;
+                font-size: 11px;
+            }
+        }
+
+        /* Landscape Orientation for Mobile Devices */
+        @media screen and (max-width: 896px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .tab-navigation {
+                margin-bottom: 20px;
+            }
+
+            .tab-button {
+                font-size: 11px;
+                padding: 10px 15px;
+            }
+
+            .tab-content h2 {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            .tab-content p,
+            .tab-content li {
+                font-size: 13px;
+            }
+
+            .calculator-section {
+                margin-top: 20px;
+                padding-top: 15px;
+            }
+
+            .audit-table th {
                 font-size: 10px;
-                padding: 10px 5px;
+                padding: 8px 4px;
+            }
+
+            .audit-table td {
+                padding: 6px 3px;
+            }
+
+            .rating-scale,
+            .reflection-question {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            /* Optimize vertical space in landscape */
+            .calculator-section {
+                margin-top: 15px;
+            }
+
+            .example-content.expanded {
+                max-height: 400px;
+                overflow-y: auto;
+            }
+        }
+
+        /* Add smooth scrolling hint for tables */
+        @media screen and (max-width: 768px) {
+            .audit-table::after {
+                content: "← Scroll horizontally →";
+                display: block;
+                text-align: center;
+                font-size: 11px;
+                color: #999;
+                padding: 8px;
+                background-color: #F8F9FA;
+                border-radius: 0 0 6px 6px;
             }
         }
 
