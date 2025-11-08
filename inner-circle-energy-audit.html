@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Circle Energy Audit</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #F8F9FA;
+            color: #333333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            border-bottom: 2px solid #DDDDDD;
+            margin-bottom: 30px;
+            gap: 0;
+        }
+
+        .tab-button {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: #333333;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            text-align: center;
+        }
+
+        .tab-button:hover {
+            background-color: #F8F9FA;
+        }
+
+        .tab-button.active {
+            border-bottom-color: #4A90E2;
+            color: #4A90E2;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-content h2 {
+            color: #4A90E2;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .tab-content p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .tab-content ul {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        .tab-content li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .rating-scale {
+            background-color: #F8F9FA;
+            padding: 15px;
+            border-left: 4px solid #4A90E2;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .reflection-question {
+            background-color: #F8F9FA;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-style: italic;
+            color: #555555;
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #DDDDDD;
+        }
+
+        /* Collapsible Example Section */
+        .example-section {
+            margin-bottom: 30px;
+        }
+
+        .example-toggle {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            text-align: left;
+        }
+
+        .example-toggle:hover {
+            background-color: #3a7bc8;
+        }
+
+        .example-toggle-icon {
+            font-weight: bold;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .example-toggle.expanded .example-toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .example-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .example-content.expanded {
+            max-height: 500px;
+            margin-top: 15px;
+        }
+
+        /* Table Styles */
+        .audit-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .audit-table table {
+            width: 100%;
+            min-width: 800px;
+        }
+
+        .audit-table th {
+            background-color: #4A90E2;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            border: 1px solid #3a7bc8;
+        }
+
+        .audit-table td {
+            padding: 8px;
+            border: 1px solid #DDDDDD;
+            text-align: center;
+        }
+
+        .audit-table input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #DDDDDD;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .audit-table input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #DDDDDD;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .audit-table input[type="text"]:focus,
+        .audit-table input[type="number"]:focus {
+            outline: none;
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+        }
+
+        .total-cell {
+            background-color: #F8F9FA;
+            font-weight: bold;
+            color: #4A90E2;
+            font-size: 16px;
+        }
+
+        /* Add Person Button */
+        .add-person-btn {
+            margin-top: 15px;
+            padding: 12px 24px;
+            background-color: white;
+            color: #4A90E2;
+            border: 2px solid #4A90E2;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .add-person-btn:hover {
+            background-color: #4A90E2;
+            color: white;
+        }
+
+        /* Example Table */
+        .example-table {
+            background-color: #F8F9FA;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .tab-button {
+                font-size: 11px;
+                padding: 12px 10px;
+            }
+
+            .tab-content h2 {
+                font-size: 20px;
+            }
+
+            .audit-table {
+                font-size: 12px;
+            }
+
+            .audit-table th {
+                font-size: 11px;
+                padding: 10px 4px;
+            }
+
+            .audit-table input[type="number"] {
+                width: 50px;
+                padding: 6px;
+            }
+
+            .audit-table input[type="text"] {
+                padding: 6px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .tab-button {
+                font-size: 10px;
+                padding: 10px 5px;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tab Navigation -->
+        <div class="tab-navigation" role="tablist">
+            <button class="tab-button active" role="tab" aria-selected="true" aria-controls="tab1" id="tab-btn-1" onclick="switchTab(1)">
+                HOW TO DO IT
+            </button>
+            <button class="tab-button" role="tab" aria-selected="false" aria-controls="tab2" id="tab-btn-2" onclick="switchTab(2)">
+                WHEN
+            </button>
+            <button class="tab-button" role="tab" aria-selected="false" aria-controls="tab3" id="tab-btn-3" onclick="switchTab(3)">
+                IMPORTANT DON'TS
+            </button>
+        </div>
+
+        <!-- Tab Content Areas -->
+        <div id="tab1" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-1">
+            <h2>How to Do It</h2>
+            <p>
+                This exercise helps you become more intentional about the people and influences in your life.
+                You'll rate each person or influence across six categories to understand their impact on your energy and growth.
+            </p>
+
+            <div class="rating-scale">
+                <strong>Rating Scale:</strong> 0 (drains me) to 5 (empowers me)
+            </div>
+
+            <p><strong>Rate each person or influence across these 6 categories:</strong></p>
+            <ul>
+                <li><strong>Money / Ambition:</strong> Do they inspire financial growth or ambitious thinking?</li>
+                <li><strong>Emotional Support:</strong> Do they provide genuine care and emotional safety?</li>
+                <li><strong>Life Example:</strong> Is their lifestyle something you admire or want to model?</li>
+                <li><strong>Learning / Growth:</strong> Do you learn valuable skills or perspectives from them?</li>
+                <li><strong>Fun / Energy:</strong> Do they bring joy, laughter, and positive energy?</li>
+                <li><strong>Trust:</strong> Can you be vulnerable and authentic with them?</li>
+            </ul>
+
+            <div class="reflection-question">
+                <strong>Reflection:</strong> After completing your audit, notice who scores high (20+) and who scores low.
+                This isn't about cutting people out—it's about understanding where to invest your time and energy.
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-2">
+            <h2>When to Do This Exercise</h2>
+            <p>
+                Do this audit when you feel drained, stuck, or disconnected from your goals. It's especially powerful
+                during life transitions—starting a new career, ending a relationship, or feeling like you've outgrown
+                your current circle. Repeat it every 6-12 months to track how your relationships evolve.
+            </p>
+            <p>
+                This is not a one-time exercise. Your inner circle should evolve as you grow. The people who served you
+                well in one season may not align with the next chapter of your life—and that's okay.
+            </p>
+        </div>
+
+        <div id="tab3" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-3">
+            <h2>Important Don'ts</h2>
+            <ul>
+                <li><strong>Don't judge or blame people</strong> — awareness is not rejection. Someone who scores low
+                    in one area might still be important in others. This is about understanding, not condemnation.</li>
+                <li><strong>Don't rush to 'cut' people</strong> — just adjust your distance and energy. A low score
+                    doesn't mean you must remove someone completely—it means you might need better boundaries or less frequent contact.</li>
+                <li><strong>Don't forget digital influences</strong> — your phone feeds your mind. Include social media
+                    accounts, podcasts, and content creators you consume regularly. They're part of your inner circle too.</li>
+            </ul>
+        </div>
+
+        <!-- Calculator Section -->
+        <div class="calculator-section">
+            <!-- Example Section -->
+            <div class="example-section">
+                <button class="example-toggle" onclick="toggleExample()" aria-expanded="false" id="example-btn">
+                    <span class="example-toggle-icon">+</span>
+                    <span>EXAMPLE</span>
+                </button>
+                <div class="example-content" id="example-content">
+                    <div class="example-table">
+                        <div class="audit-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Person / Influence</th>
+                                        <th>Money /<br>Ambition</th>
+                                        <th>Emotional<br>Support</th>
+                                        <th>Example of<br>How to Live</th>
+                                        <th>Can I Learn<br>Something?</th>
+                                        <th>Fun /<br>Energy</th>
+                                        <th>Trust</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Mom</strong></td>
+                                        <td>3</td>
+                                        <td>5</td>
+                                        <td>4</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>5</td>
+                                        <td class="total-cell">22</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Friend (Alex)</strong></td>
+                                        <td>2</td>
+                                        <td>4</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td>3</td>
+                                        <td class="total-cell">18</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Boss (Sophie)</strong></td>
+                                        <td>5</td>
+                                        <td>0</td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td>0</td>
+                                        <td>4</td>
+                                        <td class="total-cell">16</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Influencer</strong></td>
+                                        <td>4</td>
+                                        <td>1</td>
+                                        <td>4</td>
+                                        <td>0</td>
+                                        <td>5</td>
+                                        <td>1</td>
+                                        <td class="total-cell">15</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Calculator Table -->
+            <div class="audit-table">
+                <table id="calculator-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Person / Influence</th>
+                            <th style="width: 11%;">Money /<br>Ambition</th>
+                            <th style="width: 11%;">Emotional<br>Support</th>
+                            <th style="width: 13%;">Example of<br>How to Live</th>
+                            <th style="width: 13%;">Can I Learn<br>Something?</th>
+                            <th style="width: 11%;">Fun /<br>Energy</th>
+                            <th style="width: 11%;">Trust</th>
+                            <th style="width: 10%;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calculator-body">
+                        <!-- Rows will be generated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <button class="add-person-btn" onclick="addRow()">+ Add Person</button>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching Functionality
+        function switchTab(tabNumber) {
+            // Remove active class from all tabs and content
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach((btn, index) => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Add active class to selected tab and content
+            const selectedButton = document.getElementById(`tab-btn-${tabNumber}`);
+            const selectedContent = document.getElementById(`tab${tabNumber}`);
+
+            selectedButton.classList.add('active');
+            selectedButton.setAttribute('aria-selected', 'true');
+            selectedContent.classList.add('active');
+        }
+
+        // Example Toggle Functionality
+        function toggleExample() {
+            const exampleContent = document.getElementById('example-content');
+            const exampleBtn = document.getElementById('example-btn');
+            const toggleBtn = document.querySelector('.example-toggle');
+
+            exampleContent.classList.toggle('expanded');
+            toggleBtn.classList.toggle('expanded');
+
+            const isExpanded = exampleContent.classList.contains('expanded');
+            exampleBtn.setAttribute('aria-expanded', isExpanded);
+        }
+
+        // Calculator Functionality
+        let rowCount = 0;
+
+        function createRow() {
+            rowCount++;
+            const row = document.createElement('tr');
+            row.id = `row-${rowCount}`;
+
+            row.innerHTML = `
+                <td>
+                    <input type="text"
+                           aria-label="Person or influence name"
+                           placeholder="Enter name...">
+                </td>
+                <td>
+                    <input type="number"
+                           min="0"
+                           max="5"
+                           value=""
+                           class="rating-input"
+                           aria-label="Money/Ambition rating"
+                           onchange="validateAndCalculate(this, ${rowCount})">
+                </td>
+                <td>
+                    <input type="number"
+                           min="0"
+                           max="5"
+                           value=""
+                           class="rating-input"
+                           aria-label="Emotional Support rating"
+                           onchange="validateAndCalculate(this, ${rowCount})">
+                </td>
+                <td>
+                    <input type="number"
+                           min="0"
+                           max="5"
+                           value=""
+                           class="rating-input"
+                           aria-label="Life Example rating"
+                           onchange="validateAndCalculate(this, ${rowCount})">
+                </td>
+                <td>
+                    <input type="number"
+                           min="0"
+                           max="5"
+                           value=""
+                           class="rating-input"
+                           aria-label="Learning/Growth rating"
+                           onchange="validateAndCalculate(this, ${rowCount})">
+                </td>
+                <td>
+                    <input type="number"
+                           min="0"
+                           max="5"
+                           value=""
+                           class="rating-input"
+                           aria-label="Fun/Energy rating"
+                           onchange="validateAndCalculate(this, ${rowCount})">
+                </td>
+                <td>
+                    <input type="number"
+                           min="0"
+                           max="5"
+                           value=""
+                           class="rating-input"
+                           aria-label="Trust rating"
+                           onchange="validateAndCalculate(this, ${rowCount})">
+                </td>
+                <td class="total-cell">
+                    <span id="total-${rowCount}">0</span>
+                </td>
+            `;
+
+            return row;
+        }
+
+        function addRow() {
+            const tbody = document.getElementById('calculator-body');
+            tbody.appendChild(createRow());
+        }
+
+        function validateAndCalculate(input, rowId) {
+            // Validate input
+            let value = parseInt(input.value);
+
+            if (isNaN(value) || value < 0) {
+                input.value = 0;
+                value = 0;
+            } else if (value > 5) {
+                input.value = 5;
+                value = 5;
+            }
+
+            // Calculate total for this row
+            calculateRowTotal(rowId);
+        }
+
+        function calculateRowTotal(rowId) {
+            const row = document.getElementById(`row-${rowId}`);
+            const inputs = row.querySelectorAll('.rating-input');
+            let total = 0;
+
+            inputs.forEach(input => {
+                const value = parseInt(input.value);
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            });
+
+            document.getElementById(`total-${rowId}`).textContent = total;
+        }
+
+        // Initialize with 10 empty rows
+        function initializeCalculator() {
+            const tbody = document.getElementById('calculator-body');
+            for (let i = 0; i < 10; i++) {
+                tbody.appendChild(createRow());
+            }
+        }
+
+        // Keyboard navigation for accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                // Allow natural tab navigation
+                return;
+            }
+
+            // Arrow key navigation within table
+            if (e.target.classList.contains('rating-input')) {
+                const currentCell = e.target.parentElement;
+                const currentRow = currentCell.parentElement;
+
+                if (e.key === 'ArrowRight') {
+                    const nextCell = currentCell.nextElementSibling;
+                    if (nextCell && nextCell.querySelector('input')) {
+                        nextCell.querySelector('input').focus();
+                        e.preventDefault();
+                    }
+                } else if (e.key === 'ArrowLeft') {
+                    const prevCell = currentCell.previousElementSibling;
+                    if (prevCell && prevCell.querySelector('input')) {
+                        prevCell.querySelector('input').focus();
+                        e.preventDefault();
+                    }
+                } else if (e.key === 'ArrowDown') {
+                    const nextRow = currentRow.nextElementSibling;
+                    if (nextRow) {
+                        const cellIndex = Array.from(currentRow.children).indexOf(currentCell);
+                        const nextInput = nextRow.children[cellIndex]?.querySelector('input');
+                        if (nextInput) {
+                            nextInput.focus();
+                            e.preventDefault();
+                        }
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    const prevRow = currentRow.previousElementSibling;
+                    if (prevRow) {
+                        const cellIndex = Array.from(currentRow.children).indexOf(currentCell);
+                        const prevInput = prevRow.children[cellIndex]?.querySelector('input');
+                        if (prevInput) {
+                            prevInput.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            }
+        });
+
+        // Initialize calculator on page load
+        window.addEventListener('DOMContentLoaded', initializeCalculator);
+    </script>
+</body>
+</html>
